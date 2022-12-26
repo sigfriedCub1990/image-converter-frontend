@@ -1,7 +1,9 @@
-import * as models from "../models";
+const models = require("../models");
 
-import makeOrdersDb from "./orders.db";
+const makeUsersDb = require("./user.db");
 
-const ordersDb = makeOrdersDb(models);
+const usersDb = makeUsersDb(models);
 
-export { ordersDb };
+module.exports = {
+  usersDb,
+};
