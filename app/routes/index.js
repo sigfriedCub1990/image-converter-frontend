@@ -1,9 +1,9 @@
-import express from "express";
+const express = require("express");
 
-import orders from "./order.routes";
+const index = require("./index.routes");
 
 const router = express.Router();
 
-router.use(orders);
+router.use(index);
 
-export default router;
+module.exports = router;
