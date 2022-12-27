@@ -1,0 +1,9 @@
+extends base.pug
+
+block content
+    form(action="/auth/register" method="post")
+        label(for="email" style="display: block") Email:
+        input(id="email" name="email" type="email")
+        label(for="password" style="display: block" ) Password:
+        input(id="password" name="password" type="password")
+        input(type="submit" value="Register" style="display: block; margin-top: 10px")
