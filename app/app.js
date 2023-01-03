@@ -26,7 +26,6 @@ app.use(routes);
 // catch 404 and forward to error handler
 app.use(function (_, __, next) {
   const err = createError(404);
-  console.log(`Status is: ${err.status}`);
   next(err);
 });
 
