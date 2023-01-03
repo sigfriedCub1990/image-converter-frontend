@@ -1,0 +1,10 @@
+extends ../base
+
+block content
+    form(action="/user/upload" method="post" enctype="multipart/form-data")
+        input(type="file" name="photo")
+        label(for="width" style="display: block") Width:
+        input(id="width" name="width" )
+        label(for="height" style="display: block" ) Height:
+        input(id="height" name="height" )
+        input(type="submit" value="Upload" style="display: block; margin-top: 10px")
