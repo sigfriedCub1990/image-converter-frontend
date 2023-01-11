@@ -16,7 +16,7 @@ function makeUploadFile({ s3Client }) {
         resize: false,
       });
       const message = JSON.stringify({
-        url: `photoservice/${uuid}`,
+        key: uuid,
         width,
         height,
         id: inserted._id.toString(),
