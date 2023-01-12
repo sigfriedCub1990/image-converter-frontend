@@ -7,7 +7,7 @@ const sqsConfig = {
 if (process.env.SQS_ENDPOINT) {
   sqsConfig.endpoint = process.env.SQS_ENDPOINT;
 } else if (process.env.NODE_ENV === "development") {
-  sqsConfig.endpoint = "http://localhost:4566";
+  sqsConfig.endpoint = process.env.AWS_ENDPOINT;
 }
 
 if (process.env.SQS_ACCESS_KEY_ID || process.env.NODE_ENV === "development") {
@@ -31,6 +31,6 @@ exports.sqs =
 
 exports.QUEUE_URL =
   process.env.SQS_QUEUE_URL ||
-  "http://localhost:4566/000000000000/photoservice-completed-queue";
+  `${process.env.AWS_ENDPOINT}/${process.env.SQS_CONSUMER_QUEUE}`;
 
 exports.sqsConfig = sqsConfig;
