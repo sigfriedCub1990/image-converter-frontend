@@ -14,6 +14,21 @@ const authController = Object.freeze({
       res.status(400).json({ message: error.message });
     }
   },
+  loginUser: async (req, res) => {
+    const { email, password } = req.body;
+    try {
+      const user = await authService.loginUser({
+        email,
+        password,
+      });
+
+      req.session.userId = user._id;
+
+      res.redirect("/");
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  },
 });
 
 module.exports = authController;

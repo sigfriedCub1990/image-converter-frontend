@@ -1,0 +1,9 @@
+extends base.pug
+
+block content
+    form(action="/auth/login" method="post" class="p-1")
+        label(for="email" class="d-block") Email:
+        input(id="email" name="email" type="email")
+        label(for="password" class="d-block") Password:
+        input(id="password" name="password" type="password")
+        input(type="submit" value="Login" class="d-block mt-10")
