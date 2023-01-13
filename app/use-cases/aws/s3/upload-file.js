@@ -11,9 +11,11 @@ function makeUploadFile({ s3Client }) {
         Key: uuid,
       });
       const response = s3Client.send(command);
+      // TODO: Refactor this
+      // Mixed responsibility
       const inserted = await imageDb.insert({
         url: `photoservice/${uuid}`,
-        resize: false,
+        status: "enqueued",
       });
       const message = JSON.stringify({
         key: uuid,
