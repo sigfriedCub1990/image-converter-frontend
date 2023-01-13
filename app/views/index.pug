@@ -1,4 +1,21 @@
 extends base.pug
 
 block content
+    if info
+        for info in info
+            p= info.message
+    if errors
+        for error in error
+            p.alert= error.message
     h1 Main page
+    ul
+        if isLoggedIn
+            li 
+                a(href="/user/upload") Upload image
+            li 
+                a(href="/auth/logout") Logout
+        else
+            li 
+                a(href="/auth/register") Register
+            li 
+                a(href="/auth/login") Login
