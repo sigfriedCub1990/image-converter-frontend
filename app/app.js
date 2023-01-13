@@ -1,17 +1,20 @@
 const path = require("path");
 const express = require("express");
 const createError = require("http-errors");
-const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
 
 const logger = require("./logger");
 const routes = require("./routes");
+const sqsConsumer = require("./sqs-consumer");
 
 require("./database");
 require("./models");
 
 const app = express();
+
+// Start listening to SQS for new messages
+sqsConsumer.start();
 
 app.use(logger);
 
@@ -36,8 +39,8 @@ if (process.env.NODE_ENV !== "development") {
   sessionConfig.cookie = { secure: true }; // For deploy we MUST use HTTPS
 }
 app.use(session(sessionConfig));
-app.use(flash());
 
+// App routes
 app.use(routes);
 
 // catch 404 and forward to error handler
