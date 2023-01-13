@@ -13,9 +13,14 @@ function makeImageDb({ Image }) {
     return Image.create(imgData);
   }
 
+  async function update(_filter, _imageInfo) {
+    return Image.findOneAndUpdate(_filter, _imageInfo);
+  }
+
   return Object.freeze({
     insert,
     findOne,
+    update,
   });
 }
 
