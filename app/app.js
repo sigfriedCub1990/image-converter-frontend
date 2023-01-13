@@ -2,6 +2,8 @@ const path = require("path");
 const express = require("express");
 const createError = require("http-errors");
 const cookieParser = require("cookie-parser");
+const session = require("express-session");
+const MongoStore = require("connect-mongo");
 
 const logger = require("./logger");
 const routes = require("./routes");
@@ -18,8 +20,23 @@ app.set("view engine", "pug");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+
+let sessionConfig = {
+  secret: "s3cr3t",
+  resave: false,
+  saveUninitialized: true,
+  cookie: {},
+  store: MongoStore.create({
+    mongoUrl: `mongodb://${process.env.DB_HOST}/${process.env.DB_NAME}`,
+  }),
+};
+
+if (process.env.NODE_ENV !== "development") {
+  sessionConfig.cookie = { secure: true }; // For deploy we MUST use HTTPS
+}
+app.use(session(sessionConfig));
+app.use(flash());
 
 app.use(routes);
 
