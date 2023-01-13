@@ -13,9 +13,14 @@ function makeUsersDb({ User }) {
     return User.create(userData);
   }
 
+  async function update(_filter, _userInfo) {
+    return User.findOneAndUpdate(_filter, _userInfo);
+  }
+
   return Object.freeze({
     insert,
     findOne,
+    update,
   });
 }
 
