@@ -10,6 +10,35 @@
   margin-top: 10px;
 }
 
+.ml-h {
+  margin-left: 0.5rem;
+}
+
 .p-1 {
   padding: 1rem;
+}
+
+.text-bold {
+  font-weight: bold;
+}
+
+.resized {
+  color: #2a9d8f;
+}
+
+.enqued {
+  color: #e9c46a;
+}
+
+.box {
+  border: 1px solid #264653;
+}
+
+.box:not(last-child) {
+  margin-bottom: 0.5rem;
+}
+
+.unstyled {
+  list-style: none;
+  padding-left: 0;
 }

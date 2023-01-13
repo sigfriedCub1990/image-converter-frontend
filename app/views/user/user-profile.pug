@@ -1,0 +1,16 @@
+extends ../base
+
+block content
+    section(class="p-1")
+        h1= "Your images"
+        ul.unstyled
+            for image in images
+                    li
+                        div.box.p-1
+                            span.text-bold URL:
+                            p.ml-h= image.url
+                            span.text-bold Status:
+                            if image.status == 'resized'
+                                p.resized.ml-h= image.status
+                            else
+                                p.enqued.ml-h= image.status
