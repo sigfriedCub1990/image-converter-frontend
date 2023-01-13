@@ -1,4 +1,5 @@
 const uuid = require("uuid");
+const { usersDb } = require("../data-access");
 const { uploadFile, sendMessage } = require("../use-cases/aws");
 const { associateImageAndUser } = require("../use-cases/user");
 
@@ -58,8 +59,7 @@ const userController = Object.freeze({
 
       await sendMessage(message);
 
-      req.flash("info", "Image enqued for resizing.");
-      res.redirect("/");
+      res.redirect("/user/profile");
     } catch (error) {
       req.flash("error", "Something went wrong. Try again.");
       res.status(400).json({
@@ -68,6 +68,13 @@ const userController = Object.freeze({
         },
       });
     }
+  },
+  userProfile: async (req, res) => {
+    const user = await usersDb.findOne(
+      { _id: req.session.userId },
+      { populate: ["images"] }
+    );
+    res.render("user/user-profile", { images: user.images });
   },
 });
 

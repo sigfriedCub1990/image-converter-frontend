@@ -8,6 +8,7 @@ const router = express.Router();
 router
   .route("/profile")
   .get((_, res) => res.json({ message: "User's profile" }));
+router.route("/user/profile").get(isLoggedIn, userController.userProfile);
 
 router.route("/user/upload").get((_, res) => res.render("user/upload-image"));
 router
