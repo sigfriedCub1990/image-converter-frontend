@@ -1,6 +1,7 @@
 const indexController = Object.freeze({
-  mainPage: (_, res) => {
-    res.render("index");
+  mainPage: (req, res) => {
+    const isLoggedIn = req.session && req.session.userId;
+    res.render("index", { isLoggedIn });
   },
 });
 
