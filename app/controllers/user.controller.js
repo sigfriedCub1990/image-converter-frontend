@@ -1,6 +1,8 @@
 const uuid = require("uuid");
+const { writeFile } = require("node:fs/promises");
+const { Buffer } = require("node:buffer");
 const { usersDb } = require("../data-access");
-const { uploadFile, sendMessage } = require("../use-cases/aws");
+const { uploadFile, sendMessage, downloadFile } = require("../use-cases/aws");
 const { associateImageAndUser } = require("../use-cases/user");
 
 class Message {
@@ -79,6 +81,16 @@ const userController = Object.freeze({
       { populate: ["images"] }
     );
     res.render("user/user-profile", { images: user.images });
+  },
+  downloadImage: async (req, res) => {
+    const uuid = req.params.imageUUID;
+    // Download file from S3
+    const file = await downloadFile({ uuid });
+    const buffer = new Buffer.from(await file.Body.transformToByteArray());
+    // Write Buffer to temporal location
+    await writeFile(`/tmp/${uuid}`, buffer);
+
+    res.download(`/tmp/${uuid}`);
   },
 });
 

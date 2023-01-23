@@ -2,18 +2,17 @@ extends ../base
 
 block content
     section(class="p-1")
+        h1= "Your images"
         each image in images
-            h1= "Your images"
             ul.unstyled
                 li
                     div.box.p-1
-                        span.text-bold URL:
-                        p.ml-h= image.url
                         span.text-bold Status:
                         if image.status == 'resized'
                             p.resized.ml-h= image.status
                             span.text-bold Size:
                             p.ml-h #{image.resizedResolution.width} &#10799; #{image.resizedResolution.height}
+                            a(class="d-block" href="/user/download/" + image.uuid) Download image
                         else
                             p.enqued.ml-h= image.status
         else

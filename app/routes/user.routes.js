@@ -25,5 +25,8 @@ router
 router
   .route("/user/upload")
   .post(upload.single("photo"), userController.uploadImage);
+router
+  .route("/user/download/:imageUUID")
+  .get(isLoggedIn, userController.downloadImage);
 
 module.exports = router;

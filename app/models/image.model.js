@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 
 const imageSchema = new Schema({
   owner: { type: Schema.Types.ObjectId, ref: "User" },
-  url: { type: String, required: true },
+  uuid: { type: String, required: true },
   status: {
     type: String,
     enum: ["enqueued", "resized"],

@@ -7,10 +7,7 @@ const sqsConsumer = Consumer.create({
   handleMessage: async (message) => {
     try {
       const { key } = JSON.parse(message.Body);
-      await imageDb.update(
-        { url: `photoservice/${key}` },
-        { status: "resized" }
-      );
+      await imageDb.update({ uuid: `${key}` }, { status: "resized" });
     } catch (error) {
       console.error("Something went wrong");
       console.log(error.message);
