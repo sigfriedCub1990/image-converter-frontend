@@ -2,15 +2,20 @@ extends ../base
 
 block content
     section(class="p-1")
-        h1= "Your images"
-        ul.unstyled
-            for image in images
-                    li
-                        div.box.p-1
-                            span.text-bold URL:
-                            p.ml-h= image.url
-                            span.text-bold Status:
-                            if image.status == 'resized'
-                                p.resized.ml-h= image.status
-                            else
-                                p.enqued.ml-h= image.status
+        each image in images
+            h1= "Your images"
+            ul.unstyled
+                li
+                    div.box.p-1
+                        span.text-bold URL:
+                        p.ml-h= image.url
+                        span.text-bold Status:
+                        if image.status == 'resized'
+                            p.resized.ml-h= image.status
+                            span.text-bold Size:
+                            p.ml-h #{image.resizedResolution.width} &#10799; #{image.resizedResolution.height}
+                        else
+                            p.enqued.ml-h= image.status
+        else
+            h1= "Currently you don't have any images."
+            a(href="/user/upload") Upload an image

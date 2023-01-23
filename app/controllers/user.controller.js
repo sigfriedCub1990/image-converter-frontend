@@ -47,6 +47,10 @@ const userController = Object.freeze({
         associateImageAndUser({
           userId: req.session.userId,
           imageUUID: key,
+          resizedResolution: {
+            width,
+            height,
+          },
         }),
       ]);
 
