@@ -1,10 +1,11 @@
 extends ../base
 
 block content
-    form(action="/user/upload" method="post" enctype="multipart/form-data")
-        input(type="file" name="photo")
-        label(for="width" style="display: block") Width:
-        input(id="width" name="width" )
-        label(for="height" style="display: block" ) Height:
-        input(id="height" name="height" )
-        input(type="submit" value="Upload" style="display: block; margin-top: 10px")
+    section(class="p-1")
+        form(action="/user/upload" method="post" enctype="multipart/form-data")
+            input(type="file" name="photo" required)
+            label(for="width" class="d-block") Width:
+            input(id="width" name="width" required)
+            label(for="height" class="d-block") Height:
+            input(id="height" name="height" required)
+            input(type="submit" value="Upload" class="d-block mt-10")

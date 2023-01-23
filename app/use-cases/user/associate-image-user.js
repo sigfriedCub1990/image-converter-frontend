@@ -4,6 +4,7 @@ function makeAssociateImageAndUser({ userDb, imageDb }) {
       const insertedImage = await imageDb.insert({
         url: `photoservice/${imageUUID}`,
         status: "enqueued",
+        owner: userId,
       });
 
       const user = await userDb.findOne({ _id: userId });
