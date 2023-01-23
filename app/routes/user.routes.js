@@ -5,12 +5,23 @@ const { userController } = require("../controllers");
 
 const router = express.Router();
 
-router
-  .route("/profile")
-  .get((_, res) => res.json({ message: "User's profile" }));
+const isLoggedIn = (req, res, next) => {
+  if (req.session && req.session.userId) {
+    next();
+  } else {
+    next(
+      new Error(
+        "403: You're not allowed to see this page. Please, log in first."
+      )
+    );
+  }
+};
+
 router.route("/user/profile").get(isLoggedIn, userController.userProfile);
 
-router.route("/user/upload").get((_, res) => res.render("user/upload-image"));
+router
+  .route("/user/upload")
+  .get(isLoggedIn, (_, res) => res.render("user/upload-image"));
 router
   .route("/user/upload")
   .post(upload.single("photo"), userController.uploadImage);
