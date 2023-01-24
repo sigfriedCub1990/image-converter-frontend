@@ -1,5 +1,8 @@
 extends base.pug
 
+block title
+    title Register
+
 block content
     form(action="/auth/register" method="post" class="p-1")
         label(for="email" class="d-block") Email:

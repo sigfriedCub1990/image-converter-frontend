@@ -4,12 +4,12 @@ const authController = Object.freeze({
   registerUser: async (req, res) => {
     const { email, password } = req.body;
     try {
-      const user = await authService.registerUser({
+      await authService.registerUser({
         email,
         password,
       });
 
-      res.json({ id: user._id });
+      res.redirect("/");
     } catch (error) {
       res.status(400).json({ message: error.message });
     }

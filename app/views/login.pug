@@ -1,5 +1,8 @@
 extends base.pug
 
+block title
+    title Login
+
 block content
     form(action="/auth/login" method="post" class="p-1")
         label(for="email" class="d-block") Email:
