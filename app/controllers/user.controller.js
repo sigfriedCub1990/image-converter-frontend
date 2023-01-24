@@ -1,9 +1,7 @@
 const uuid = require("uuid");
-const { writeFile } = require("node:fs/promises");
-const { Buffer } = require("node:buffer");
 const { usersDb } = require("../data-access");
-const { uploadFile, sendMessage, downloadFile } = require("../use-cases/aws");
-const { associateImageAndUser } = require("../use-cases/user");
+const { uploadFile, sendMessage } = require("../use-cases/aws");
+const { associateImageAndUser, downloadImage } = require("../use-cases/user");
 const { unlinkSync } = require("node:fs");
 
 class Message {
@@ -85,13 +83,7 @@ const userController = Object.freeze({
   },
   downloadImage: async (req, res) => {
     const uuid = req.params.imageUUID;
-    // Download file from S3
-    const file = await downloadFile({ uuid });
-    const buffer = new Buffer.from(await file.Body.transformToByteArray());
-    // Write Buffer to temporal location
-    const fileName = `/tmp/${uuid}`;
-    await writeFile(fileName, buffer);
-
+    const fileName = await downloadImage({ uuid });
     res.download(fileName, (err) => {
       if (err) {
         console.log(err.message);
