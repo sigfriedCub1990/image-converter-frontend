@@ -4,6 +4,7 @@ const { Buffer } = require("node:buffer");
 const { usersDb } = require("../data-access");
 const { uploadFile, sendMessage, downloadFile } = require("../use-cases/aws");
 const { associateImageAndUser } = require("../use-cases/user");
+const { unlinkSync } = require("node:fs");
 
 class Message {
   constructor() {
@@ -88,9 +89,15 @@ const userController = Object.freeze({
     const file = await downloadFile({ uuid });
     const buffer = new Buffer.from(await file.Body.transformToByteArray());
     // Write Buffer to temporal location
-    await writeFile(`/tmp/${uuid}`, buffer);
+    const fileName = `/tmp/${uuid}`;
+    await writeFile(fileName, buffer);
 
-    res.download(`/tmp/${uuid}`);
+    res.download(fileName, (err) => {
+      if (err) {
+        console.log(err.message);
+      }
+      unlinkSync(fileName);
+    });
   },
 });
 
