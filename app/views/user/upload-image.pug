@@ -1,9 +1,13 @@
 extends ../base
 
+block title
+    title="Upload image"
+
 block content
     section(class="p-1")
         form(action="/user/upload" method="post" enctype="multipart/form-data")
-            input(type="file" name="photo" required)
+            label(for="photo" class="d-block") Image to resize:
+            input(id="photo" type="file" name="photo" required)
             label(for="width" class="d-block") Width:
             input(id="width" name="width" required)
             label(for="height" class="d-block") Height:
